@@ -1,21 +1,17 @@
 import express from 'express';
+import cors from 'cors'
 
 import db from '../db/mongoose';
+import routes from '../app/routes';
 
 const app = express();
 
 db();
 
-app.get('/list', (req, res) => {
-    const info = req.body
-    console.log('Bom, entrou na rota get')
-    res.json('Entrou na rota get')
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 
-app.post('/create', (req, res) => {
-    const info = req.body
-    console.log('Bom, entrou na rota post')
-    res.json('Entrou na rota post')
-})
+app.use('/api', routes)
 
 export default app;
